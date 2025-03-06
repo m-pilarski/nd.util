@@ -11,6 +11,14 @@ nd_card <- function(.header=list(), .body=list()){
   )
 }
 
+# tags$svg(
+#   width="24", height="24", viewBox="0 0 24 24", xmlns="http://www.w3.org/2000/svg", 
+#   tags$style(".spinner_qM83{animation:spinner_8HQG 1.05s infinite}.spinner_oXPr{animation-delay:.1s}.spinner_ZTLf{animation-delay:.2s}@keyframes spinner_8HQG{0%,57.14%{animation-timing-function:cubic-bezier(0.33,.66,.66,1);transform:translate(0)}28.57%{animation-timing-function:cubic-bezier(0.33,0,.66,.33);transform:translateY(-6px)}100%{transform:translate(0)}}"), 
+#   tags$circle(class="spinner_qM83", cx="4", cy="12", r="3"), 
+#   tags$circle(class="spinner_qM83 spinner_oXPr", cx="12", cy="12", r="3"), 
+#   tags$circle(class="spinner_qM83 spinner_ZTLf", cx="20", cy="12", r="3")
+# )
+
 #' Title
 #'
 #' @param .url NULL
@@ -25,17 +33,7 @@ nd_card <- function(.header=list(), .body=list()){
 nd_iframe_app <- function(.url, .width="100%", .height="400pt"){
   .iframe_id <- stringi::stri_c("iframe", digest::digest(.url, algo="crc32c"))
   .nd_iframe_app <- list(
-    tags$div(
-      id=stringi::stri_c(.iframe_id, "-wait"),
-      "LALALA",
-      # tags$svg(
-      #   width="24", height="24", viewBox="0 0 24 24", xmlns="http://www.w3.org/2000/svg", 
-      #   tags$style(".spinner_qM83{animation:spinner_8HQG 1.05s infinite}.spinner_oXPr{animation-delay:.1s}.spinner_ZTLf{animation-delay:.2s}@keyframes spinner_8HQG{0%,57.14%{animation-timing-function:cubic-bezier(0.33,.66,.66,1);transform:translate(0)}28.57%{animation-timing-function:cubic-bezier(0.33,0,.66,.33);transform:translateY(-6px)}100%{transform:translate(0)}}"), 
-      #   tags$circle(class="spinner_qM83", cx="4", cy="12", r="3"), 
-      #   tags$circle(class="spinner_qM83 spinner_oXPr", cx="12", cy="12", r="3"), 
-      #   tags$circle(class="spinner_qM83 spinner_ZTLf", cx="20", cy="12", r="3")
-      # )
-    ),
+    tags$span(id=stringi::stri_c(.iframe_id, "-wait"), "LALALA"),
     tags$iframe(
       id=.iframe_id, scrolling="no", loading="lazy",
       style=stringi::stri_c("width: ", .width, "; height: ", .height, ";")
