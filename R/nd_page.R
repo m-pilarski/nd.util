@@ -45,7 +45,7 @@ nd_iframe_app <- function(.url, .width="100%", .height="400pt"){
         "$(document).ready(function(){",
         "  $('#", .iframe_id, "').attr('src', '", .url, "');",
         "  $('#", .iframe_id, "').on('load', function() {",
-        "     $('", stringi::stri_c(.iframe_id, "-wait"), "').hide();",
+        "     $('#", stringi::stri_c(.iframe_id, "-wait"), "').hide();",
         "  });",
         "});"
       )
