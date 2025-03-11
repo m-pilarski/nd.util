@@ -23,30 +23,45 @@ nd_card <- function(.header=list(), .body=list()){
 #' @examples
 #' NULL
 nd_iframe_app <- function(.url, .width="100%", .height="400pt"){
-  .url_hash <- stringi::stri_c("iframe", digest::digest(.url, algo="crc32c"))
+  
+  .url_hash <- digest::digest(.url, algo="crc32c")
+  .iframe_id <- stringi::stri_c("iframe-", .url_hash)
+  .loader_id <- stringi::stri_c("loader-", .url_hash)
+
   .nd_iframe_app <- list(
+    tags$div(
+      id=.loader_id,
+      class="d-flex justify-content-center justify-content-center align-items-center",
+      style=stringi::stri_c("width: ", .width, "; height: ", .height, ";"),
+      tags$div(class="spinner-border text-primary", role="status", tags$span(class="sr-only", "Loading..."))
+    ),
     tags$iframe(
-      id=.url_hash, scrolling="no", loading="lazy",
-      style=stringi::stri_c("width: ", .width, "; height: ", .height, ";")
+      id=.iframe_id, scrolling="no", loading="lazy",
+      style=stringi::stri_c("width: ", .width, "; height: ", 0, ";")
     ),
     tags$script(
       stringi::stri_c(
-        "$(document).ready(function(){",
-        "  $('iframe#", .url_hash, "').attr('src', '", .url, "');",
+        "$(document).ready(function(){\n",
+        "  $('#", .iframe_id, "').attr('src', '", .url, "');\n",
+        "  $('#", .iframe_id, "').on('load', function() {\n",
+        "     $('#", .loader_id, "').remove();\n",
+        "  });\n",
         "});"
       )
     ),
     tags$script(
       stringi::stri_c(
-        "var domains = ['https://shiny.dsjlu.wirtschaft.uni-giessen.de'];",
-        "iframeResize(",
-        "  {waitForLoad: false, license: 'GPLv3', checkOrigin: domains}, ",
-        "  '#", .url_hash, "'",
+        "var domains = ['https://shiny.dsjlu.wirtschaft.uni-giessen.de'];\n",
+        "iframeResize(\n",
+        "  {waitForLoad: false, license: 'GPLv3', checkOrigin: domains}, \n",
+        "  '#", .iframe_id, "'\n",
         ");"
       )
     )
   )
+
   return(.nd_iframe_app)
+
 }
 
 #' nd_page
