@@ -9,7 +9,8 @@ nd_button_block(
   .label,
   .fa_class,
   .label_busy = .label,
-  .fa_class_busy = .fa_class
+  .fa_class_busy = .fa_class,
+  ...
 )
 }
 \arguments{
@@ -22,6 +23,8 @@ nd_button_block(
 \item{.label_busy}{...}
 
 \item{.fa_class_busy}{...}
+
+\item{...}{...}
 }
 \value{
 ...
