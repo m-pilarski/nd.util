@@ -1,24 +1,27 @@
-icon_fa <- function(.fa_class){
-  htmltools::tags$i(class=.fa_class, role="resentation")
-}
+#' nd_button_block
+#'
+#' @param .id ...
+#' @param .label ...
+#' @param .fa_class ...
+#' @param .label_busy ...
+#' @param .fa_class_busy ...
+#'
+#' @returns ...
+#' @export
+#'
+#' @examples
+#' NULL
+nd_button_block <- function(
+  .id, .label, .fa_class, .label_busy=.label, .fa_class_busy=.fa_class
+){
 
-tags <- htmltools::tags
-
-tags$button(
-  class="btn btn-primary bslib-task-button block bg-primary text-white",
-  `data-auto-reset`=NA,
-  id="GENERATE",
-  style="width: 100%; padding: 8px 16px;",
-  type="button",
-  tags$span(
-    slot="ready",
-    tags$i(class="fa-solid fa-dice", role="resentation"),
-    "Erhalte einen zufälligen Google News Artikel"
-  ),
-  tags$span(
-    slot="busy",
-    tags$i(class="fa-solid fa-dice fa-spin", role="resentation"),
-    "Erhalte einen zufälligen Google News Artikel"
+  bslib::input_task_button(
+    id=.id, 
+    class="btn btn-primary btn-lg btn-block text-white",
+    label=.label, 
+    icon=icon_fa(.fa_class),
+    label_busy=.label_busy,
+    icon_busy=icon_fa(.fa_class_busy),
   )
-)
-tags$script("$('#GENERATE').click();")
+
+}

@@ -2,6 +2,8 @@
 
 export(format_fa_list)
 export(format_nd_toc)
+export(icon_fa)
+export(nd_button_block)
 export(nd_iframe_app)
 export(nd_main)
 export(nd_main_sec)
