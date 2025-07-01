@@ -1,6 +1,6 @@
 path_vendor <- local({
   .path_here <- here::here()
-  stopifnot(stringi::stri_detect_regex(.path_here, "/endikau\\.site/?"))
+  stopifnot(stringi::stri_detect_regex(.path_here, "/nd\\.site/?"))
   .path_vendor <- fs::path(.path_here, "inst", "www", "assets", "vendor")
   if(fs::dir_exists(.path_vendor)){fs::dir_delete(.path_vendor)}
   fs::dir_create(.path_vendor)
@@ -142,5 +142,45 @@ local({
   fs::dir_copy(
     fs::path(.path_git_tmp, "scss/"), 
     .path_lib_tmp
+  )
+})
+
+local({
+  .path_git_tmp <- fs::file_temp(pattern="git")
+  .path_lib_tmp <- fs::path(path_vendor, "d3")
+  gert::git_clone("git@github.com:d3/d3.git", .path_git_tmp)
+  # 7.9.0 release
+  gert::git_reset_hard(
+    ref="1f8dd3b92960f58726006532c11e9457864513ec", repo=I(.path_git_tmp)
+  )
+  processx::run("npm", "prune", wd=.path_git_tmp)
+  processx::run("npm", "install", wd=.path_git_tmp)
+  fs::dir_create(fs::path(.path_lib_tmp, "js"))
+  fs::file_copy(
+    fs::path(.path_git_tmp, "LICENSE"), 
+    fs::path(.path_lib_tmp, "LICENSE")
+  )
+  fs::file_copy(
+    fs::path(.path_git_tmp, "node_modules", "d3", "dist", "d3.min.js"),
+    fs::path(.path_lib_tmp, "js", "d3.min.js")
+  )
+})
+
+local({
+  .path_git_tmp <- fs::file_temp(pattern="git")
+  .path_lib_tmp <- fs::path(path_vendor, "d3-cloud")
+  gert::git_clone("git@github.com:jasondavies/d3-cloud.git", .path_git_tmp)
+  # 1.2.7 release
+  gert::git_reset_hard(
+    ref="deea7d7165a4304d8eb123bd6b0e07aaae77ebea", repo=I(.path_git_tmp)
+  )
+  fs::dir_create(fs::path(.path_lib_tmp, "js"))
+  fs::file_copy(
+    fs::path(.path_git_tmp, "LICENSE"), 
+    fs::path(.path_lib_tmp, "LICENSE")
+  )
+  fs::file_copy(
+    fs::path(.path_git_tmp, "build", "d3.layout.cloud.js"),
+    fs::path(.path_lib_tmp, "js", "d3.layout.cloud.js")
   )
 })

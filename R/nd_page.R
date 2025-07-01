@@ -31,39 +31,45 @@ nd_card <- function(.header=list(), .body=list()){
 #' @examples
 #' NULL
 nd_iframe_app <- function(.url, .width="100%", .height="400pt"){
-  .iframe_id <- stringi::stri_c("iframe", digest::digest(.url, algo="crc32c"))
+  
+  .url_hash <- digest::digest(.url, algo="crc32c")
+  .iframe_id <- stringi::stri_c("iframe-", .url_hash)
+  .loader_id <- stringi::stri_c("loader-", .url_hash)
+
   .nd_iframe_app <- list(
-    list(
-      tags$div(
-        id=stringi::stri_c(.iframe_id, "-wait"),
-        htmltools::HTML('<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><style>.spinner_l9ve{animation:spinner_rcyq 1.2s cubic-bezier(0.52,.6,.25,.99) infinite}.spinner_cMYp{animation-delay:.4s}.spinner_gHR3{animation-delay:.8s}@keyframes spinner_rcyq{0%{transform:translate(12px,12px) scale(0);opacity:1}100%{transform:translate(0,0) scale(1);opacity:0}}</style><path class="spinner_l9ve" d="M12,1A11,11,0,1,0,23,12,11,11,0,0,0,12,1Zm0,20a9,9,0,1,1,9-9A9,9,0,0,1,12,21Z" transform="translate(12, 12) scale(0)"/><path class="spinner_l9ve spinner_cMYp" d="M12,1A11,11,0,1,0,23,12,11,11,0,0,0,12,1Zm0,20a9,9,0,1,1,9-9A9,9,0,0,1,12,21Z" transform="translate(12, 12) scale(0)"/><path class="spinner_l9ve spinner_gHR3" d="M12,1A11,11,0,1,0,23,12,11,11,0,0,0,12,1Zm0,20a9,9,0,1,1,9-9A9,9,0,0,1,12,21Z" transform="translate(12, 12) scale(0)"/></svg>')
-      )
+    tags$div(
+      id=.loader_id,
+      class="d-flex justify-content-center justify-content-center align-items-center",
+      style=stringi::stri_c("width: ", .width, "; height: ", .height, ";"),
+      tags$div(class="spinner-border text-primary", role="status", tags$span(class="sr-only", "Loading..."))
     ),
     tags$iframe(
       id=.iframe_id, scrolling="no", loading="lazy",
-      style=stringi::stri_c("width: ", .width, "; height: ", .height, ";")
+      style=stringi::stri_c("width: ", .width, "; height: ", 0, ";")
     ),
     tags$script(
       stringi::stri_c(
-        "$(document).ready(function(){",
-        "  $('#", .iframe_id, "').attr('src', '", .url, "');",
-        "  $('#", .iframe_id, "').on('load', function() {",
-        "     $('#", stringi::stri_c(.iframe_id, "-wait"), "').hide();",
-        "  });",
+        "$(document).ready(function(){\n",
+        "  $('#", .iframe_id, "').attr('src', '", .url, "');\n",
+        "  $('#", .iframe_id, "').on('load', function() {\n",
+        "     $('#", .loader_id, "').remove();\n",
+        "  });\n",
         "});"
       )
     ),
     tags$script(
       stringi::stri_c(
-        "var domains = ['https://shiny.dsjlu.wirtschaft.uni-giessen.de'];",
-        "iframeResize(",
-        "  {waitForLoad: false, license: 'GPLv3', checkOrigin: domains}, ",
-        "  '#", .iframe_id, "'",
+        "var domains = ['https://shiny.dsjlu.wirtschaft.uni-giessen.de'];\n",
+        "iframeResize(\n",
+        "  {waitForLoad: false, license: 'GPLv3', checkOrigin: domains}, \n",
+        "  '#", .iframe_id, "'\n",
         ");"
       )
     )
   )
+
   return(.nd_iframe_app)
+
 }
 
 #' nd_page
