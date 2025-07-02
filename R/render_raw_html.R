@@ -1,3 +1,12 @@
+#' Title
+#'
+#' @param .html ...
+#'
+#' @returns ...
+#' @export
+#'
+#' @examples
+#' NULL
 render_raw_html <- function(.html){
   .html |> 
     purrr::map_chr(as.character) |> 

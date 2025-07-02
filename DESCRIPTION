@@ -17,6 +17,8 @@ Imports:
     dplyr,
     glue,
     htmltools,
+    jsonlite,
+    knitr,
     purrr,
     stringi,
     vctrs
