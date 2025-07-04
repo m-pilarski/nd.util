@@ -10,7 +10,7 @@
 #' NULL
 d3_wordcloud <- function(.data, .element_id){
   
-  stopifnot(all(c("term", "size", "rotate", "color") %in% colnames(.data)))
+  stopifnot(all(c("text", "size", "rotate", "color") %in% colnames(.data)))
   
   .words_json <- jsonlite::toJSON(
     purrr::list_transpose(as.list(.data)), auto_unbox=TRUE
