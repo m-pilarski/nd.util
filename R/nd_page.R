@@ -36,7 +36,7 @@ nd_iframe_app <- function(.url, .width="100%", .height="400pt"){
   .iframe_id <- stringi::stri_c("iframe-", .url_hash)
   .loader_id <- stringi::stri_c("loader-", .url_hash)
 
-  .nd_iframe_app <- list(
+  .nd_iframe_app <- htmltools::tagList(
     tags$div(
       id=.loader_id,
       class="d-flex justify-content-center justify-content-center align-items-center",

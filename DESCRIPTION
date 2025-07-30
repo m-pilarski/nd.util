@@ -20,5 +20,6 @@ Imports:
     jsonlite,
     knitr,
     purrr,
+    stats,
     stringi,
     vctrs
