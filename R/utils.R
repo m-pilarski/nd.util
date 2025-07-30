@@ -13,7 +13,7 @@ htmltools::tags
 #' @examples
 #' NULL
 icon_fa <- function(.fa_class){
-  htmltools::tags$i(class=.fa_class, role="resentation")
+  htmltools::tags$i(class=.fa_class, role="presentation")
 }
 
 #' html_to_md

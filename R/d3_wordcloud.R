@@ -24,7 +24,6 @@ d3_wordcloud <- function(.data, .element_id){
   )
 }
 
-
 dataframe <- data.frame(
   term = c("R", "Data", "Science", "Visualization", "Shiny", "Model", "Plot", "Tidyverse", "Cloud", "Statistics"),
   size = c(50, 40, 35, 30, 25, 20, 18, 22, 28, 32),
