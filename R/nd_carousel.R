@@ -21,13 +21,13 @@ nd_carousel <- function(.slides, .title=""){
       `data-glide-el`="controls",
       tags$button(
         `data-glide-dir`="<", 
-        class="glide__btn-left btn btn-primary text-white",
+        class="glide__btn-left btn text-primary",
         tags$i(class="fa-solid fa-angles-left")
       ),
-      tags$div(class="flex-fill text-center px-2", .title),
+      tags$div(class="flex-fill text-center px-2 d-flex align-items-center justify-content-center", .title),
       tags$button(
         `data-glide-dir`=">", 
-        class="glide__btn-right btn btn-primary text-white",
+        class="glide__btn-right btn text-primary",
         tags$i(class="fa-solid fa-angles-right")
       )
     ),
