@@ -17,17 +17,17 @@ nd_carousel <- function(.slides, .title=""){
   .glide_container <- tags$div(
     id=.glide_id, class="glide nd-glide",
     tags$div(
-      class="glide__controls d-flex flex-row align-middle mb-2",
+      class="glide__controls card d-flex flex-row align-middle mb-2",
       `data-glide-el`="controls",
       tags$button(
         `data-glide-dir`="<", 
-        class="btn btn-primary text-white",
+        class="glide__btn-left btn btn-primary text-white",
         tags$i(class="fa-solid fa-angles-left")
       ),
       tags$div(class="flex-fill text-center px-2", .title),
       tags$button(
         `data-glide-dir`=">", 
-        class="btn btn-primary text-white",
+        class="glide__btn-right btn btn-primary text-white",
         tags$i(class="fa-solid fa-angles-right")
       )
     ),
