@@ -16,10 +16,12 @@ Imports:
     digest,
     dplyr,
     glue,
+    gt,
     htmltools,
     jsonlite,
     knitr,
     purrr,
     stats,
     stringi,
-    vctrs
+    vctrs,
+    xml2

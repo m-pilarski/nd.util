@@ -15,7 +15,7 @@ d3_wordcloud <- function(.data, .element_id){
   .words_json <- jsonlite::toJSON(
     purrr::list_transpose(as.list(.data)), auto_unbox=TRUE
   )
-  
+    
   htmltools::tags$script(
     stringi::stri_c(
       "const words = ", .words_json, ";\n",
